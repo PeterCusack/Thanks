@@ -1,0 +1,17 @@
+<h2>Rails way</h2>
+<%= @user.github_name %>
+<%= form_for :repositories, method: :get, url: '/repositories/contributors' do  |f| %>
+	<%= f.text_field :repo_name%>
+	<%= f.submit 'Submit' %>
+<% end %>
+
+<h2>Ajaxxxxx</h2>
+<form action="/repositories/contributors" class="repo_search_ajaxed">
+	<label for="repo_name">Repository Name:</label>
+	<input type="text" name="repo_name">
+	<button>Find Colabs</button>
+</form>
+
+<div class="contributers-display">
+	
+</div>

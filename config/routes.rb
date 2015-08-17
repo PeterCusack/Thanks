@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+  # post 'users/create'
+  # get 'users/profile'
   get 'landing/welcome'
+  # get '/auth/:provider/callback', to: 'users#create'
   root 'landing#welcome'
-
+  resources :users
+  # resources 'repositories'
+  get '/repositories/contributors', to: "repositories#contributors"
+  # match "/repositories/contributers" => "repositories#contributers", via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
