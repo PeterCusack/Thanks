@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714021816) do
+ActiveRecord::Schema.define(version: 20150923202813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_providers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "authURL"
+    t.string   "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "github_repositories", force: :cascade do |t|
     t.string   "name"
@@ -36,6 +44,10 @@ ActiveRecord::Schema.define(version: 20150714021816) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.string   "githubauthkey"
+    t.string   "twitter_name"
+    t.string   "twitter_authkey"
+    t.string   "venmo_name"
+    t.string   "venmo_authkey"
   end
 
 end

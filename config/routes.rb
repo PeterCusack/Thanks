@@ -2,11 +2,20 @@ Rails.application.routes.draw do
   # post 'users/create'
   # get 'users/profile'
   get 'landing/welcome'
-  # get '/auth/:provider/callback', to: 'users#create'
   root 'landing#welcome'
   resources :users
   # resources 'repositories'
-  get '/repositories/contributors', to: "repositories#contributors"
+  post '/repositories/contributors', to: "repositories#contributors"
+  
+  post '/api/webflow', to: "api#webflow"
+
+  scope :api do 
+    # Github Routes
+    post '/github/code-for-token', action: 'code_for_token', controller: "github"
+    # Coinbase Routes
+    post '/coinbase/code-for-token', action: 'code_for_token', controller: "coinbase"
+  end
+
   # match "/repositories/contributers" => "repositories#contributers", via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

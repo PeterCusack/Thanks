@@ -26,6 +26,9 @@ gem 'rspec-rails'
 gem 'omniauth-github'
 gem 'dotenv-rails'
 gem "octokit"
+gem "httparty"
+gem "hirb"
+gem "coinbase"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

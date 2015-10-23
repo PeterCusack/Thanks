@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 	def self.allow_cors(methods)
-		binding.pry
 		before_filter :cors_before_filter, :only => methods 
 		# Rails recommends to use :null_session for APIs
 		protect_from_forgery with: :null_session, :only => methods
@@ -16,7 +15,7 @@ class ApplicationController < ActionController::Base
 			headers['Access-Control-Allow-Origin'] = request.headers['Origin']
 			headers['Access-Control-Allow-Credentials'] = 'true'
 			# headers['Access-Control-Request-Method'] => %w{GET POST OPTIONS}.join(",")
-  	# end
+  	# end{}
 	end
 
 end

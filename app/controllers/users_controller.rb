@@ -1,33 +1,32 @@
 class UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
   def create
-    # binding.pry
-  	# client = Octokit::Client.new(:access_token => env['omniauth.auth']['credentials']['token'])
-    client =  Octokit::Client.new(:access_token => params['access_token'])
-
-  	# env['omniauth.auth']['extra']['raw_info']['name']
-  	# env['omniauth.auth']['extra']['raw_info']['avatar_url']
-  	# env['omniauth.auth']['extra']['raw_info']['login']
+    newUser =  Octokit::Client.new(:access_token => params['access_token'])
+    userFields = newUser.user
+    if !(User.find_by(github_email: newUser.emails[0][:email]))
+      User.create(
+        github_name: userFields.name,
+        github_email: newUser.emails[0][:email],
+        github_avatar_url: newUser.user.avatar_url,
+        github_username: userFields.login,
+        githubauthkey: params['access_token']
+      )
+    end
+    render json: {githubauthkey: params['access_token'], github_username: userFields.login, github_avatar_url: newUser.user.avatar_url}
   	# client.emails
   	# client.repositories
   	# client.organization_memberships
-
-  	# binding.pry
-  	# user = User.create(
-  	# 	github_name: env['omniauth.auth']['extra']['raw_info']['name'],
-  	# 	github_email: client.emails[0][:email],
-  	# 	github_avatar_url: env['omniauth.auth']['extra']['raw_info']['avatar_url'],
-  	# 	github_username: env['omniauth.auth']['extra']['raw_info']['login'],
-   #    githubauthkey: env['omniauth.auth']['credentials']['token']
-  	# )
-  	# session[:user_id] = user.id
-  	# redirect_to '/users/profile'
-
-    render json: client
   end
 
   def show
-  	@user = User.find(session[:user_id])
-    render 'profile'
+    @user = User.find_by(githubauthkey: params["id"])
+    # render json: {githubauthkey: @user.githubauthkey, github_username: @user.github_username, github_avatar_url: @user.github_avatar_url}
+    render json: @user
+  end
+
+  # PUT /users/(github_username)
+  # Usually used to add info after knew oauth step.
+  def update 
+    binding.pry
   end
 end
