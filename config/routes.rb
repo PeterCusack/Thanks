@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   scope :api do 
     # Github Routes
     post '/github/code-for-token', action: 'code_for_token', controller: "github"
+    post '/github/check-usernames', action: 'check_usernames', controller: "github"
     # Coinbase Routes
     post '/coinbase/code-for-token', action: 'code_for_token', controller: "coinbase"
   end

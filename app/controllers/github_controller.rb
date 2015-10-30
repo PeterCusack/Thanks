@@ -1,6 +1,6 @@
 class GithubController < ApplicationController
 	# allow_cors [:login_html]
-	skip_before_action :verify_authenticity_token, :only => [:login_html, :code_for_token]
+	skip_before_action :verify_authenticity_token, :only => [:check_usernames, :code_for_token]
 
 	def code_for_token
 		@github_response = HTTParty.post("https://github.com/login/oauth/access_token?", 
@@ -14,5 +14,16 @@ class GithubController < ApplicationController
 		render json: {apiInfo: @github_response, apiProvider: "github"}
 	end
 
+	def check_usernames
+		params["usernamesArray"].map! do |username|
+			binding.pry
+			if User.find_by(github_username: username)
+				return true
+			else
+				return false
+			end
+
+		end
+	end
 
 end
