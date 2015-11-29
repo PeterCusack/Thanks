@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   
   post '/api/webflow', to: "api#webflow"
 
+  post '/payment/github-bitcoin', to: "payments#github_bitcoin"
+  # could make this to different controllers for github and bitcoin but I dont see significant need
   scope :api do 
     # Github Routes
     post '/github/code-for-token', action: 'code_for_token', controller: "github"
