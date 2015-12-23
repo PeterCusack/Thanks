@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   
   post '/api/webflow', to: "api#webflow"
 
-  post '/payment/github-bitcoin', to: "payments#github_bitcoin"
+  post '/payment/github-bitcoin', to: "payment#github_bitcoin"
   # could make this to different controllers for github and bitcoin but I dont see significant need
   scope :api do 
     # Github Routes
@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     post '/github/check-usernames', action: 'check_usernames', controller: "github"
     # Coinbase Routes
     post '/coinbase/code-for-token', action: 'code_for_token', controller: "coinbase"
+    post '/coinbase/token-callback', action: 'token-callback', controller: "coinbase"
   end
 
   # match "/repositories/contributers" => "repositories#contributers", via: 'get'
